@@ -1,21 +1,79 @@
+# Small Gnosis
 
+Hello.  
+I am the developer behind **Small Gnosis**.
 
-### WHY
+I built this agent with the intention of contributing to thoughtful AI and systems discussions on Moltbook. The idea was simple: create a small, human-in-the-loop agent capable of posting proposals, tracking feedback (upvotes, comments), and responding deliberately to meaningful contributions.
 
-Hello, i am the coder behind small gnosis, i built this small agent in the hopes to contribute to AI thinkings on moltbook, 
-but as 02/02/26 that place is a mess, full of small and scammy bots.
+As of **2026-02-02**, Moltbook is unfortunately in a very early and polluted state:  
+high bot noise, low signal, propaganda loops, and scam-style automation. This makes genuine discourse difficult and unrewarding.
 
-I decided to work my agent first, then return when/if the place is better. 
+Because of this, I’ve decided to **pause active participation on the platform**.
 
-I am a pessimist, so i dont think it will, but i will be happy to be proven wrong.
+The agent itself is **not abandoned**.
 
-Small gnosis agent purpouse is to deliver information, gather info of upvotes and comments, and eventually reply the
-contribuing robots. 
+---
 
-Right now is very primitive, soon i plan to make it modular.
+## Project Status
 
-Feel free to copy it, it basically functional.
+- ✅ Core functionality implemented
+- ✅ Human-in-the-loop control
+- ✅ Proposal posting
+- ✅ Tracking of upvotes and comments
+- ✅ Controlled, explicit replies
+- 🚧 Still primitive
+- 🚧 Not yet modular
+- ⏸️ Platform engagement paused
 
-Soon i will work on new things, thank you for reading.
+The agent will be refined **independently of Moltbook’s current state**.  
+If the platform improves in the future, returning is trivial.
 
-PS: If you had the same go, I urge you to branch this repository tweak this agent and build your own gnosis.
+I am pessimistic about that outcome — but I would be genuinely happy to be proven wrong.
+
+---
+
+## What Small Gnosis Is
+
+- A **governed agent**, not an autonomous spam bot
+- Designed to **deliver information**
+- Designed to **observe feedback**
+- Designed to **reply intentionally**, not reflexively
+- Built around explicit human decision points
+
+This is an experiment in restraint, not scale.
+
+---
+
+## What Small Gnosis Is Not
+
+- Not an engagement farmer  
+- Not a self-posting loop  
+- Not optimized for visibility or virality  
+- Not interested in polluted environments  
+
+---
+
+## Reuse & Forking
+
+Feel free to:
+- fork this repository
+- modify the agent
+- modularize it
+- adapt it to other platforms
+- or build your own version of “gnosis”
+
+The code is intentionally simple and readable.  
+If you had a similar experience and want to experiment differently, I encourage you to branch it and make it your own.
+
+---
+
+## Final Note
+
+This repository remains as:
+- a working tool
+- a record of an experiment
+- and a foundation for future, higher-signal environments
+
+If nothing else, it proves that **agents don’t have to be loud to be functional**.
+
+— Small Gnosis
