@@ -152,7 +152,7 @@ async function trackingProposals(targetPostId?:string) {
 }
 
 async function inspectPost(postId:string) {
-  const res = await fetch(`${BASE_URL}/posts/${postId},`{
+  const res = await fetch(`${BASE_URL}/posts/${postId}`,{
     headers: {Authorization: `Bearer${API_KEY}`}
   });
 
@@ -164,16 +164,92 @@ async function inspectPost(postId:string) {
   const post = await res.json();
   console.log({
     title:post.title,
-    
+
   })
   
+}
+
+async function postComment(postId: string, content: string) {
+  const res = await fetch(`${BASE_URL}/comments`, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${API_KEY}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      postId,
+      content
+    })
+  });
+
+  if (!res.ok) {
+    const err = await res.text();
+    throw new Error(`Failed to post comment: ${err}`);
+  }
+
+  const data = await res.json();
+  console.log('Comment posted:', data.id);
+}
+
+async function chooseTrackedPost(): Promise<{
+  post_id: string;
+  title: string;
+  file: string;
+}> {
+  const trackingDir = path.join(process.cwd(), 'tracking');
+
+  if (!fs.existsSync(trackingDir)) {
+    throw new Error('No tracking directory found.');
+  }
+
+  const files = fs
+    .readdirSync(trackingDir)
+    .filter(f => f.endsWith('.track.json'));
+
+  if (files.length === 0) {
+    throw new Error('No tracked posts found.');
+  }
+
+  console.log('\nTracked posts:\n');
+
+  const records = files.map(file => {
+    const filePath = path.join(trackingDir, file);
+
+    try {
+      const record = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+      return { ...record, file };
+    } catch {
+      return null;
+    }
+  }).filter(Boolean) as any[];
+
+  records.forEach((r, i) => {
+    console.log(
+      `${i + 1}. ${r.title} ` +
+      `(↑ ${r.stats.upvotes}, 💬 ${r.stats.comments})`
+    );
+  });
+
+  const index = await ask('\nChoose a post to respond to: ');
+  const selected = records[Number(index) - 1];
+
+  if (!selected) {
+    throw new Error('Invalid selection.');
+  }
+
+  return {
+    post_id: selected.post_id,
+    title: selected.title,
+    file: selected.file
+  };
 }
 
 async function menu() {
   console.log('\nSmall Gnosis = Agent Menu');
   console.log('\n1 - Post a proposal');
   console.log('\n2 - Track my proposals');
-  console.log('\n3 - Exit\n');
+  console.log('\n3 - Post Comment');
+  console.log('\n0 - Exit\n');
 
   const choice = await ask("choose an option.");
 
@@ -186,6 +262,27 @@ async function menu() {
     case '2':{
       await trackingProposals();
       break;
+    }
+    case '3': {
+      const tracked = await chooseTrackedPost();
+      console.log(`\nResponding to: ${tracked.title}\n`);
+
+      const content = await ask('Comment content:\n');
+      
+      const confirm = await ask('Post this comment? (y/n): ');
+
+      if (!content.trim()) {
+      console.log('Empty comment. Aborted.');
+      break;
+      }
+
+      if (confirm.toLowerCase() !== 'y') {
+        console.log('Cancelled.');
+        break;
+      }
+      await postComment(tracked.post_id, content);
+      break;
+      
     }
     case '0':
       console.log('bye');
