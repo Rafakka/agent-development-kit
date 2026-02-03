@@ -1,79 +1,116 @@
-# Small Gnosis
+# Small Gnosis Agent
 
-Hello.  
-I am the developer behind **Small Gnosis**.
+A minimal TypeScript CLI agent for interacting with Moltbook.
 
-I built this agent with the intention of contributing to thoughtful AI and systems discussions on Moltbook. The idea was simple: create a small, human-in-the-loop agent capable of posting proposals, tracking feedback (upvotes, comments), and responding deliberately to meaningful contributions.
+This project was built as an experiment in **agent-driven participation**, focusing on:
+- Posting proposals
+- Tracking engagement (upvotes, comments)
+- Responding to posts
+- Clean separation of concerns (CLI, domain, infrastructure)
 
-As of **2026-02-02**, Moltbook is unfortunately in a very early and polluted state:  
-high bot noise, low signal, propaganda loops, and scam-style automation. This makes genuine discourse difficult and unrewarding.
-
-Because of this, I’ve decided to **pause active participation on the platform**.
-
-The agent itself is **not abandoned**.
+As of **02/02/2026**, Moltbook is heavily polluted with low-quality bots and spam, so this agent is intentionally kept **simple and self-contained**, serving more as a technical and architectural demonstration than a production bot.
 
 ---
 
-## Project Status
+## What this project is
 
-- ✅ Core functionality implemented
-- ✅ Human-in-the-loop control
-- ✅ Proposal posting
-- ✅ Tracking of upvotes and comments
-- ✅ Controlled, explicit replies
-- 🚧 Still primitive
-- 🚧 Not yet modular
-- ⏸️ Platform engagement paused
-
-The agent will be refined **independently of Moltbook’s current state**.  
-If the platform improves in the future, returning is trivial.
-
-I am pessimistic about that outcome — but I would be genuinely happy to be proven wrong.
+- A **TypeScript CLI** (no frameworks)
+- A **thin client** over the Moltbook API
+- A **local tracking system** for posts and engagement
+- A **cleanly layered codebase**, suitable as a portfolio project
 
 ---
 
-## What Small Gnosis Is
+## What this project is not
 
-- A **governed agent**, not an autonomous spam bot
-- Designed to **deliver information**
-- Designed to **observe feedback**
-- Designed to **reply intentionally**, not reflexively
-- Built around explicit human decision points
+- Not autonomous
+- Not “AI-driven” in the buzzword sense
+- Not a moderation bot
+- Not a production-ready social agent
 
-This is an experiment in restraint, not scale.
-
----
-
-## What Small Gnosis Is Not
-
-- Not an engagement farmer  
-- Not a self-posting loop  
-- Not optimized for visibility or virality  
-- Not interested in polluted environments  
+This is a **tool**, not a personality.
 
 ---
 
-## Reuse & Forking
+## Features
 
-Feel free to:
-- fork this repository
-- modify the agent
-- modularize it
-- adapt it to other platforms
-- or build your own version of “gnosis”
-
-The code is intentionally simple and readable.  
-If you had a similar experience and want to experiment differently, I encourage you to branch it and make it your own.
+- Post proposals to Moltbook
+- Reply to posts by ID
+- Track posts locally (upvotes, downvotes, comments)
+- Simple interactive menu
+- Typed domain models
+- No hidden state or background processes
 
 ---
 
-## Final Note
+## Project Structure
 
-This repository remains as:
-- a working tool
-- a record of an experiment
-- and a foundation for future, higher-signal environments
+```
+src/
+├─ cli/              # User interaction (ask, menu)
+├─ core/             # Domain types and API client
+│  ├─ types.ts
+│  └─ moltbookClient.ts
+├─ app/              # Use cases / actions
+├─ tracking/         # Local tracking store (JSON files)
+└─ index.ts          # Entry point
+```
 
-If nothing else, it proves that **agents don’t have to be loud to be functional**.
+Each layer has a single responsibility:
+- **CLI** asks
+- **Actions** decide
+- **Clients** execute
+- **Stores** persist
 
-— Small Gnosis
+---
+
+## Setup
+
+```bash
+npm install
+```
+
+Create a `.env` file:
+
+```env
+MOLTBOOK_API_KEY=your_api_key_here
+```
+
+Run:
+
+```bash
+npx ts-node src/index.ts
+```
+
+---
+
+## Usage
+
+The CLI exposes a simple menu:
+
+- Post a proposal
+- Respond to a post
+- Track a post
+- Exit
+
+Tracking data is stored locally as JSON so you can inspect, version, or reuse it.
+
+---
+
+## Why this exists
+
+This agent was built in good faith to contribute to agent-to-agent discussion on Moltbook.  
+The platform’s current state makes meaningful interaction difficult, so development is paused.
+
+The code remains as:
+- A learning artifact
+- A reference implementation
+- A base for others to fork and experiment
+
+---
+
+## License
+
+MIT — do whatever you want with it.
+
+If you had the same experience with Moltbook, feel free to fork this and build **your own gnosis**.
